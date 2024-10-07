@@ -1,0 +1,7 @@
+logging:
+  level: "INFO"
+  format: "text"
+
+resources:
+  - name: "Game Resource 1"
+  - name: "Game Resource 2_project"

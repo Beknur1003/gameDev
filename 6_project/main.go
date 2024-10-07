@@ -3,15 +3,15 @@ package main
 import (
 	"fmt"
 	"sync"
+	"sync/atomic"
 )
 
-// Можно заюзать мьютексы
+// Как и в 5_project, только если использовать атомарные операции для суммирования
 
 func main() {
 	numbers := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-	var totalSum int
+	var totalSum int64
 	var wg sync.WaitGroup
-	var mu sync.Mutex
 
 	numGoroutines := 2
 	chunkSize := len(numbers) / numGoroutines
@@ -26,14 +26,12 @@ func main() {
 
 		go func(nums []int) {
 			defer wg.Done()
-			localSum := 0
+			localSum := int64(0)
 			for _, num := range nums {
-				localSum += num
+				localSum += int64(num)
 			}
 
-			mu.Lock()
-			totalSum += localSum
-			mu.Unlock()
+			atomic.AddInt64(&totalSum, localSum)
 		}(numbers[start:end])
 	}
 

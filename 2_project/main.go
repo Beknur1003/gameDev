@@ -13,7 +13,7 @@ type Resource struct {
 }
 
 var resource1 = Resource{name: "Resource 1_project"}
-var resource2 = Resource{name: "Resource 2"}
+var resource2 = Resource{name: "Resource 2_project"}
 
 var mu1 = sync.Mutex{}
 var mu2 = sync.Mutex{}
